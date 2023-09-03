@@ -56,11 +56,13 @@ public class ClienteService {
         return listaMapeada;
     }
 
-    public ClienteDTO findById(Long idCliente){
+    public ClienteRetornoDTO findById(Long idCliente){
         verifyById(idCliente);
 
         Cliente cliente = this.clienteRepository.findById(idCliente).get();
-        return mapper.map(cliente, ClienteDTO.class);
+        ClienteRetornoDTO clienteRetorno = mapper.map(cliente, ClienteRetornoDTO.class);
+        clienteRetorno.setEnderecosId(cliente.getEnderecos().stream().map(endereco -> endereco.getId()).collect(Collectors.toSet()));
+        return clienteRetorno;
     }
 
     public ClienteRetornoDTO save(ClienteCadastroDTO cliente){
