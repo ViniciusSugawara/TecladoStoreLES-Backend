@@ -1,5 +1,7 @@
-package br.com.fatecmc.tecladostorelesbackend.presentation.dtos;
+package br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input;
 
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.BaseDTO;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.output.EnderecoDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClienteCadastroDTO extends BaseDTO{
+public class ClienteCadastroDTO extends BaseDTO {
     private String nome;
     private Date dataNascimento;
     private String genero;
