@@ -22,8 +22,10 @@ public class Cliente extends BaseModel {
     private String telefone;
     private String email;
     private String senha;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente_id")
     private Set<Endereco> enderecos = new HashSet<>();
-    @OneToMany(mappedBy = "clienteResponsavel", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente_id")
     private Set<Cartao> cartoesCredito = new HashSet<>();
 }
