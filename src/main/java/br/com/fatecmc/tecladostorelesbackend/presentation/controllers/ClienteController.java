@@ -1,8 +1,13 @@
 package br.com.fatecmc.tecladostorelesbackend.presentation.controllers;
 
 import br.com.fatecmc.tecladostorelesbackend.domain.models.Cliente;
-import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.*;
 import br.com.fatecmc.tecladostorelesbackend.domain.services.ClienteService;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.ClienteCadastroDTO;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.ClienteEditadoDTO;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.output.CartaoDTO;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.output.ClienteDTO;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.output.ClienteRetornoDTO;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.output.EnderecoDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,7 +41,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public Cliente update(Long id, @RequestBody Cliente cliente){
+    public ClienteRetornoDTO update(@PathVariable("id") Long id, @RequestBody ClienteEditadoDTO cliente){
         return this.clienteService.update(id, cliente);
     }
 
@@ -46,8 +51,8 @@ public class ClienteController {
     }
 
     @PatchMapping("/{id}/endereco")
-    public ClienteDTO patchWithEndereco(@PathVariable("id") Long id, @RequestBody EnderecoDTO endereco){
-        return this.clienteService.patchWithEndereco(id, endereco);
+    public ClienteDTO patchEndereco(@PathVariable("id") Long id, @RequestBody EnderecoDTO endereco){
+        return this.clienteService.patchEndereco(id, endereco);
     }
     @DeleteMapping("/{id}")
     public void deleteById(Long id){
