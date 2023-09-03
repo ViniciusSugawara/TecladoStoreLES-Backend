@@ -4,14 +4,12 @@ import br.com.fatecmc.tecladostorelesbackend.data.repositories.EnderecoRepositor
 import br.com.fatecmc.tecladostorelesbackend.domain.models.Cartao;
 import br.com.fatecmc.tecladostorelesbackend.domain.models.Cliente;
 import br.com.fatecmc.tecladostorelesbackend.domain.models.Endereco;
-import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.CartaoDTO;
-import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.ClienteCadastroDTO;
-import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.ClienteDTO;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.*;
 import br.com.fatecmc.tecladostorelesbackend.data.repositories.ClienteRepository;
-import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.EnderecoDTO;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,11 +24,36 @@ public class ClienteService {
         this.mapper = new ModelMapper();
     }
 
-    public List<ClienteDTO> findAll () {
-        return this.clienteRepository.findAll()
+    public List<ClienteRetornoDTO> findAll () {
+
+        List<ClienteRetornoDTO> listaMapeada = new ArrayList<>();
+
+        this.clienteRepository.findAll()
                 .stream()
-                .map(user -> mapper.map(user, ClienteDTO.class))
-                .collect(Collectors.toList());
+                .forEach(cliente -> {
+                    ClienteRetornoDTO clienteMapeado = mapper.map(cliente, ClienteRetornoDTO.class);
+
+                    if(!cliente.getEnderecos().isEmpty()){
+                        clienteMapeado.setEnderecosId(
+                                cliente.getEnderecos()
+                                        .stream()
+                                        .map(endereco -> endereco.getId())
+                                        .collect(Collectors.toSet())
+                        );
+                    }
+
+                    if(!cliente.getCartoesCredito().isEmpty()){
+                        clienteMapeado.setCartoesCreditoId(
+                                cliente.getCartoesCredito()
+                                        .stream()
+                                        .map(cartao -> cartao.getId())
+                                        .collect(Collectors.toSet())
+                        );
+                    }
+                    listaMapeada.add(clienteMapeado);
+                });
+
+        return listaMapeada;
     }
 
     public ClienteDTO findById(Long idCliente){
@@ -40,9 +63,32 @@ public class ClienteService {
         return mapper.map(cliente, ClienteDTO.class);
     }
 
-    public Cliente save(ClienteCadastroDTO cliente){
+    public ClienteRetornoDTO save(ClienteCadastroDTO cliente){
         Cliente clienteMapeado = mapper.map(cliente, Cliente.class);
-        return this.clienteRepository.save(clienteMapeado);
+        clienteMapeado.getEnderecos().add(mapper.map(cliente.getEnderecoResidencial(), Endereco.class));
+
+        ClienteRetornoDTO clienteRetorno = mapper.map(this.clienteRepository.save(clienteMapeado), ClienteRetornoDTO.class);
+        clienteRetorno.setEnderecosId(clienteMapeado.getEnderecos().stream().map(endereco -> endereco.getId()).collect(Collectors.toSet()));
+        return clienteRetorno;
+    }
+
+    public ClienteRetornoDTO addEndereco(Long idCliente, EnderecoDTO endereco){
+        verifyById(idCliente);
+        Cliente cliente = this.clienteRepository.findById(idCliente).get();
+        cliente.getEnderecos().add(mapper.map(endereco, Endereco.class));
+
+        ClienteRetornoDTO clienteRetorno = mapper.map(
+                this.clienteRepository.save(cliente), ClienteRetornoDTO.class
+        );
+
+        clienteRetorno.setEnderecosId(
+                cliente.getEnderecos()
+                        .stream()
+                        .map(enderecos -> enderecos.getId())
+                        .collect(Collectors.toSet())
+        );
+
+        return clienteRetorno;
     }
 
     public Cliente update(Long idCliente, Cliente cliente){
