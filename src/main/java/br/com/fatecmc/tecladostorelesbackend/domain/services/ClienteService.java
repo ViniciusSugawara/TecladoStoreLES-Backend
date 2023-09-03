@@ -4,13 +4,19 @@ import br.com.fatecmc.tecladostorelesbackend.data.repositories.EnderecoRepositor
 import br.com.fatecmc.tecladostorelesbackend.domain.models.Cartao;
 import br.com.fatecmc.tecladostorelesbackend.domain.models.Cliente;
 import br.com.fatecmc.tecladostorelesbackend.domain.models.Endereco;
-import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.*;
 import br.com.fatecmc.tecladostorelesbackend.data.repositories.ClienteRepository;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.ClienteCadastroDTO;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.ClienteEditadoDTO;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.output.CartaoDTO;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.output.ClienteDTO;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.output.ClienteRetornoDTO;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.output.EnderecoDTO;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,12 +40,7 @@ public class ClienteService {
                     ClienteRetornoDTO clienteMapeado = mapper.map(cliente, ClienteRetornoDTO.class);
 
                     if(!cliente.getEnderecos().isEmpty()){
-                        clienteMapeado.setEnderecosId(
-                                cliente.getEnderecos()
-                                        .stream()
-                                        .map(endereco -> endereco.getId())
-                                        .collect(Collectors.toSet())
-                        );
+                        clienteMapeado.setEnderecosId(convertEnderecosToId(cliente));
                     }
 
                     if(!cliente.getCartoesCredito().isEmpty()){
@@ -61,7 +62,7 @@ public class ClienteService {
 
         Cliente cliente = this.clienteRepository.findById(idCliente).get();
         ClienteRetornoDTO clienteRetorno = mapper.map(cliente, ClienteRetornoDTO.class);
-        clienteRetorno.setEnderecosId(cliente.getEnderecos().stream().map(endereco -> endereco.getId()).collect(Collectors.toSet()));
+        clienteRetorno.setEnderecosId(convertEnderecosToId(cliente));
         return clienteRetorno;
     }
 
@@ -70,7 +71,7 @@ public class ClienteService {
         clienteMapeado.getEnderecos().add(mapper.map(cliente.getEnderecoResidencial(), Endereco.class));
 
         ClienteRetornoDTO clienteRetorno = mapper.map(this.clienteRepository.save(clienteMapeado), ClienteRetornoDTO.class);
-        clienteRetorno.setEnderecosId(clienteMapeado.getEnderecos().stream().map(endereco -> endereco.getId()).collect(Collectors.toSet()));
+        clienteRetorno.setEnderecosId(convertEnderecosToId(clienteMapeado));
         return clienteRetorno;
     }
 
@@ -83,20 +84,29 @@ public class ClienteService {
                 this.clienteRepository.save(cliente), ClienteRetornoDTO.class
         );
 
-        clienteRetorno.setEnderecosId(
-                cliente.getEnderecos()
-                        .stream()
-                        .map(enderecos -> enderecos.getId())
-                        .collect(Collectors.toSet())
-        );
+        clienteRetorno.setEnderecosId(convertEnderecosToId(cliente));
 
         return clienteRetorno;
     }
 
-    public Cliente update(Long idCliente, Cliente cliente){
+    public ClienteRetornoDTO update(Long idCliente, ClienteEditadoDTO cliente){
         verifyById(idCliente);
 
-        return this.clienteRepository.save(cliente);
+        cliente.setId(idCliente);
+
+        this.mapper.getConfiguration().setSkipNullEnabled(true);
+
+        Cliente clienteSalvo = this.clienteRepository.findById(idCliente).get();
+
+        mapper.map(cliente, clienteSalvo);
+
+        ClienteRetornoDTO clienteRetornado =  mapper.map(
+                this.clienteRepository.save(clienteSalvo), ClienteRetornoDTO.class
+        );
+        clienteRetornado.setEnderecosId(convertEnderecosToId(clienteSalvo));
+
+        this.mapper.getConfiguration().setSkipNullEnabled(false);
+        return clienteRetornado;
     }
 
     public ClienteDTO patchWithCartao(Long idCliente, CartaoDTO cartao){
@@ -109,7 +119,9 @@ public class ClienteService {
         return mapper.map(clienteSalvo, ClienteDTO.class);
     }
 
-    public ClienteDTO patchWithEndereco(Long idCliente, EnderecoDTO endereco){
+    // Edição de um endereço já existente no cliente
+
+    public ClienteDTO patchEndereco(Long idCliente, EnderecoDTO endereco){
         verifyById(idCliente);
 
         Cliente clienteRetornado = this.clienteRepository.findById(idCliente).get();
@@ -127,5 +139,8 @@ public class ClienteService {
         if(!this.clienteRepository.existsById(id)) {
             throw new RuntimeException("Id não existe");
         }
+    }
+    private Set<Long> convertEnderecosToId(Cliente cliente){
+        return cliente.getEnderecos().stream().map(endereco -> endereco.getId()).collect(Collectors.toSet());
     }
 }
