@@ -12,7 +12,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClienteDTO {
+public class ClienteDTO extends BaseDTO{
     private String nome;
     private Date dataNascimento;
     private String genero;
@@ -21,5 +21,5 @@ public class ClienteDTO {
     private String email;
     private String senha;
     private Set<EnderecoDTO> enderecos;
-    private Set<Long> cartoesCreditoId;
+    private Set<CartaoDTO> cartoesCredito;
 }

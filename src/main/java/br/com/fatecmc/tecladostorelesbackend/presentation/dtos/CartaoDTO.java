@@ -10,8 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartaoDTO {
-    private Long id;
+public class CartaoDTO extends BaseDTO{
     private Boolean preferencial;
     private String numeros;
     private Bandeiras bandeira;
