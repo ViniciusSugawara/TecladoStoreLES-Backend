@@ -17,5 +17,4 @@ public class CartaoDTO extends BaseDTO {
     private Bandeiras bandeira;
     private String nomeImpresso;
     private String codigoSeguranca;
-    private Long clienteId;
 }
