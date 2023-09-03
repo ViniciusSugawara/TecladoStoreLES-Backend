@@ -89,6 +89,20 @@ public class ClienteService {
         return clienteRetorno;
     }
 
+    public ClienteRetornoDTO addCartao(Long idCliente, CartaoDTO cartao){
+        verifyById(idCliente);
+        Cliente cliente = this.clienteRepository.findById(idCliente).get();
+        cliente.getCartoesCredito().add(mapper.map(cartao, Cartao.class));
+
+        ClienteRetornoDTO clienteRetorno = mapper.map(
+                this.clienteRepository.save(cliente), ClienteRetornoDTO.class
+        );
+
+        clienteRetorno.setCartoesCreditoId(convertCartoesToId(cliente));
+
+        return clienteRetorno;
+    }
+
     public ClienteRetornoDTO update(Long idCliente, ClienteEditadoDTO cliente){
         verifyById(idCliente);
 
@@ -113,7 +127,6 @@ public class ClienteService {
         verifyById(idCliente);
 
         Cliente clienteRetornado = this.clienteRepository.findById(idCliente).get();
-        cartao.setClienteId(idCliente);
         clienteRetornado.getCartoesCredito().add(mapper.map(cartao, Cartao.class));
         Cliente clienteSalvo = this.clienteRepository.save(clienteRetornado);
         return mapper.map(clienteSalvo, ClienteDTO.class);
@@ -143,4 +156,8 @@ public class ClienteService {
     private Set<Long> convertEnderecosToId(Cliente cliente){
         return cliente.getEnderecos().stream().map(endereco -> endereco.getId()).collect(Collectors.toSet());
     }
+    private Set<Long> convertCartoesToId(Cliente cliente){
+        return cliente.getCartoesCredito().stream().map(cartao -> cartao.getId()).collect(Collectors.toSet());
+    }
+
 }
