@@ -1,11 +1,8 @@
 package br.com.fatecmc.tecladostorelesbackend.presentation.controllers;
 
 import br.com.fatecmc.tecladostorelesbackend.domain.models.Cliente;
-import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.CartaoDTO;
-import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.ClienteCadastroDTO;
-import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.ClienteDTO;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.*;
 import br.com.fatecmc.tecladostorelesbackend.domain.services.ClienteService;
-import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.EnderecoDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +16,7 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
     @GetMapping
-    public List<ClienteDTO> findAll() {
+    public List<ClienteRetornoDTO> findAll() {
         return this.clienteService.findAll();
     }
 
@@ -29,8 +26,13 @@ public class ClienteController {
     }
 
     @PostMapping
-    public Cliente save(@RequestBody ClienteCadastroDTO cliente){
+    public ClienteRetornoDTO save(@RequestBody ClienteCadastroDTO cliente){
         return this.clienteService.save(cliente);
+    }
+
+    @PostMapping("/{id}/enderecos")
+    public ClienteRetornoDTO addEndereco(@PathVariable("id")Long id, @RequestBody EnderecoDTO endereco){
+        return this.clienteService.addEndereco(id, endereco);
     }
 
     @PutMapping("/{id}")
