@@ -40,6 +40,11 @@ public class ClienteController {
         return this.clienteService.addEndereco(id, endereco);
     }
 
+    @PostMapping("/{id}/cartoes")
+    public ClienteRetornoDTO addCartao(@PathVariable("id")Long id, @RequestBody CartaoDTO cartao){
+        return this.clienteService.addCartao(id, cartao);
+    }
+
     @PutMapping("/{id}")
     public ClienteRetornoDTO update(@PathVariable("id") Long id, @RequestBody ClienteEditadoDTO cliente){
         return this.clienteService.update(id, cliente);
