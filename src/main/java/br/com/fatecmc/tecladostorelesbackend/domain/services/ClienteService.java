@@ -15,6 +15,8 @@ import org.modelmapper.ModelMapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -63,12 +65,22 @@ public class ClienteService {
     }
 
     public ClienteRetornoDTO save(ClienteCadastroDTO cliente){
+        if(senhaInvalida(cliente.getSenha())){
+            throw new RuntimeException("Senha invalida");
+        }
         Cliente clienteMapeado = mapper.map(cliente, Cliente.class);
         clienteMapeado.getEnderecos().add(mapper.map(cliente.getEnderecoResidencial(), Endereco.class));
 
         ClienteRetornoDTO clienteRetorno = mapper.map(this.clienteRepository.save(clienteMapeado), ClienteRetornoDTO.class);
         clienteRetorno.setEnderecosId(convertEnderecosToId(clienteMapeado));
         return clienteRetorno;
+    }
+
+    private boolean senhaInvalida(String senha){
+        String regex = "^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(senha);
+        return matcher.matches();
     }
 
     public ClienteRetornoDTO addEndereco(Long idCliente, EnderecoDTO endereco){
