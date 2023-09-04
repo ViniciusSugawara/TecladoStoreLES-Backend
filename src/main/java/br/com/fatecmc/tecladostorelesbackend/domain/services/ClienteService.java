@@ -22,11 +22,9 @@ import java.util.stream.Collectors;
 @Service
 public class ClienteService {
     private ClienteRepository clienteRepository;
-    private EnderecoRepository enderecoRepository;
     private ModelMapper mapper;
-    public ClienteService(ClienteRepository clienteRepository, EnderecoRepository enderecoRepository) {
+    public ClienteService(ClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
-        this.enderecoRepository = enderecoRepository;
         this.mapper = new ModelMapper();
     }
 
@@ -133,8 +131,7 @@ public class ClienteService {
     }
 
     // Edição de um endereço já existente no cliente
-
-    public ClienteDTO patchEndereco(Long idCliente, Long idEndereco, EnderecoDTO endereco){
+    public ClienteRetornoDTO patchEndereco(Long idCliente, Long idEndereco, EnderecoDTO endereco){
         verifyById(idCliente);
 
         mapper.getConfiguration().setSkipNullEnabled(true);
@@ -151,7 +148,13 @@ public class ClienteService {
         mapper.getConfiguration().setSkipNullEnabled(false);
 
         Cliente clienteSalvo = this.clienteRepository.save(clienteRetornado);
-        return mapper.map(clienteSalvo, ClienteDTO.class);
+        return mapper.map(clienteSalvo, ClienteRetornoDTO.class);
+    }
+
+    public void deactivateById(Long idCliente){
+        Cliente clienteRetornado = this.clienteRepository.findById(idCliente).orElseThrow();
+        clienteRetornado.setAtivo(false);
+        this.clienteRepository.save(clienteRetornado);
     }
 
     public void deleteById(Long idCliente){
@@ -163,6 +166,7 @@ public class ClienteService {
             throw new RuntimeException("Id não existe");
         }
     }
+
     private Set<Long> convertEnderecosToId(Cliente cliente){
         return cliente.getEnderecos().stream().map(endereco -> endereco.getId()).collect(Collectors.toSet());
     }
