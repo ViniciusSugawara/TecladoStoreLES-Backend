@@ -1,6 +1,5 @@
 package br.com.fatecmc.tecladostorelesbackend.presentation.controllers;
 
-import br.com.fatecmc.tecladostorelesbackend.domain.models.Cliente;
 import br.com.fatecmc.tecladostorelesbackend.domain.services.ClienteService;
 import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.ClienteCadastroDTO;
 import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.ClienteEditadoDTO;
@@ -56,9 +55,15 @@ public class ClienteController {
     }
 
     @PatchMapping("/{id}/enderecos/{idEndereco}")
-    public ClienteDTO patchEndereco(@PathVariable("id") Long id, @PathVariable("idEndereco") Long idEndereco, @RequestBody EnderecoDTO endereco){
+    public ClienteRetornoDTO patchEndereco(@PathVariable("id") Long id, @PathVariable("idEndereco") Long idEndereco, @RequestBody EnderecoDTO endereco){
         return this.clienteService.patchEndereco(id, idEndereco, endereco);
     }
+
+    @PatchMapping("/{id}/desativar")
+    public void deactivate(@PathVariable("id")Long id){
+        this.clienteService.deactivateById(id);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteById(Long id){
         this.clienteService.deleteById(id);
