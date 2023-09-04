@@ -28,4 +28,6 @@ public class Cliente extends BaseModel {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "cliente_id")
     private Set<Cartao> cartoesCredito = new HashSet<>();
+
+    private Boolean ativo = true;
 }
