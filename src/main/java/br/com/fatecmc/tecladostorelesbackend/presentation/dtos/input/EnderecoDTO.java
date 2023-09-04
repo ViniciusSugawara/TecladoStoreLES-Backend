@@ -1,4 +1,4 @@
-package br.com.fatecmc.tecladostorelesbackend.presentation.dtos.output;
+package br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input;
 
 import br.com.fatecmc.tecladostorelesbackend.domain.models.Cliente;
 import br.com.fatecmc.tecladostorelesbackend.domain.models.enums.enderecos.TiposEndereco;

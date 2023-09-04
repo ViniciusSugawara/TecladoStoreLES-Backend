@@ -1,16 +1,14 @@
 package br.com.fatecmc.tecladostorelesbackend.domain.services;
 
-import br.com.fatecmc.tecladostorelesbackend.data.repositories.EnderecoRepository;
 import br.com.fatecmc.tecladostorelesbackend.domain.models.Cartao;
 import br.com.fatecmc.tecladostorelesbackend.domain.models.Cliente;
 import br.com.fatecmc.tecladostorelesbackend.domain.models.Endereco;
 import br.com.fatecmc.tecladostorelesbackend.data.repositories.ClienteRepository;
 import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.ClienteCadastroDTO;
 import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.ClienteEditadoDTO;
-import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.output.CartaoDTO;
-import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.output.ClienteDTO;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.CartaoDTO;
 import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.output.ClienteRetornoDTO;
-import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.output.EnderecoDTO;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.EnderecoDTO;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
@@ -119,15 +117,6 @@ public class ClienteService {
 
         this.mapper.getConfiguration().setSkipNullEnabled(false);
         return clienteRetornado;
-    }
-
-    public ClienteDTO patchWithCartao(Long idCliente, CartaoDTO cartao){
-        verifyById(idCliente);
-
-        Cliente clienteRetornado = this.clienteRepository.findById(idCliente).get();
-        clienteRetornado.getCartoesCredito().add(mapper.map(cartao, Cartao.class));
-        Cliente clienteSalvo = this.clienteRepository.save(clienteRetornado);
-        return mapper.map(clienteSalvo, ClienteDTO.class);
     }
 
     // Edição de um endereço já existente no cliente

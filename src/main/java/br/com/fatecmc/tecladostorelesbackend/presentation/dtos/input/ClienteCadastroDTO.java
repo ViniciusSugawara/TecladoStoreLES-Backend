@@ -1,7 +1,6 @@
 package br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input;
 
 import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.BaseDTO;
-import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.output.EnderecoDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
