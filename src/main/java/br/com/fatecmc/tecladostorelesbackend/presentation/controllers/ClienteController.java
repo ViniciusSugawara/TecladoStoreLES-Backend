@@ -55,9 +55,9 @@ public class ClienteController {
         return this.clienteService.patchWithCartao(id, cartao);
     }
 
-    @PatchMapping("/{id}/endereco")
-    public ClienteDTO patchEndereco(@PathVariable("id") Long id, @RequestBody EnderecoDTO endereco){
-        return this.clienteService.patchEndereco(id, endereco);
+    @PatchMapping("/{id}/enderecos/{idEndereco}")
+    public ClienteDTO patchEndereco(@PathVariable("id") Long id, @PathVariable("idEndereco") Long idEndereco, @RequestBody EnderecoDTO endereco){
+        return this.clienteService.patchEndereco(id, idEndereco, endereco);
     }
     @DeleteMapping("/{id}")
     public void deleteById(Long id){
