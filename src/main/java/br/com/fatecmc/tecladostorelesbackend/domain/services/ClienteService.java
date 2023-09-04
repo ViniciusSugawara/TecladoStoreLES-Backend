@@ -134,11 +134,21 @@ public class ClienteService {
 
     // Edição de um endereço já existente no cliente
 
-    public ClienteDTO patchEndereco(Long idCliente, EnderecoDTO endereco){
+    public ClienteDTO patchEndereco(Long idCliente, Long idEndereco, EnderecoDTO endereco){
         verifyById(idCliente);
 
+        mapper.getConfiguration().setSkipNullEnabled(true);
+
         Cliente clienteRetornado = this.clienteRepository.findById(idCliente).get();
-        System.out.println("Salvando endereço");
+        Endereco enderecoEncontrado = clienteRetornado.getEnderecos()
+                .stream()
+                .filter(endereco1 -> endereco1.getId() == idEndereco)
+                .findFirst()
+                .get();
+        mapper.map(endereco, enderecoEncontrado);
+        clienteRetornado.getEnderecos().add(enderecoEncontrado);
+
+        mapper.getConfiguration().setSkipNullEnabled(false);
 
         Cliente clienteSalvo = this.clienteRepository.save(clienteRetornado);
         return mapper.map(clienteSalvo, ClienteDTO.class);
