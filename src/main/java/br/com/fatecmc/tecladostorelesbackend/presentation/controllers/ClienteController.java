@@ -6,12 +6,15 @@ import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.ClienteEdit
 import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.CartaoDTO;
 import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.output.ClienteRetornoDTO;
 import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.EnderecoDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/clientes")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ClienteController {
     private ClienteService clienteService;
 
@@ -19,8 +22,8 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
     @GetMapping
-    public List<ClienteRetornoDTO> findAll() {
-        return this.clienteService.findAll();
+    public ResponseEntity<List<ClienteRetornoDTO>> findAll() {
+        return new ResponseEntity<>(this.clienteService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

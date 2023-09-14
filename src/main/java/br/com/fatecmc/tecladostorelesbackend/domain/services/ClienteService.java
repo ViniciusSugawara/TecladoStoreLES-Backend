@@ -1,8 +1,8 @@
 package br.com.fatecmc.tecladostorelesbackend.domain.services;
 
-import br.com.fatecmc.tecladostorelesbackend.domain.models.Cartao;
-import br.com.fatecmc.tecladostorelesbackend.domain.models.Cliente;
-import br.com.fatecmc.tecladostorelesbackend.domain.models.Endereco;
+import br.com.fatecmc.tecladostorelesbackend.domain.models.cliente.Cartao;
+import br.com.fatecmc.tecladostorelesbackend.domain.models.cliente.Cliente;
+import br.com.fatecmc.tecladostorelesbackend.domain.models.cliente.Endereco;
 import br.com.fatecmc.tecladostorelesbackend.data.repositories.ClienteRepository;
 import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.ClienteCadastroDTO;
 import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.ClienteEditadoDTO;
@@ -68,11 +68,14 @@ public class ClienteService {
         if(senhaInvalida(cliente.getSenha())){
             throw new RuntimeException("Senha invalida");
         }
+        mapper.getConfiguration().setSkipNullEnabled(true);
         Cliente clienteMapeado = mapper.map(cliente, Cliente.class);
         clienteMapeado.getEnderecos().add(mapper.map(cliente.getEnderecoResidencial(), Endereco.class));
 
         ClienteRetornoDTO clienteRetorno = mapper.map(this.clienteRepository.save(clienteMapeado), ClienteRetornoDTO.class);
         clienteRetorno.setEnderecosId(convertEnderecosToId(clienteMapeado));
+
+        mapper.getConfiguration().setSkipNullEnabled(false);
         return clienteRetorno;
     }
 

@@ -1,6 +1,6 @@
 package br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input;
 
-import br.com.fatecmc.tecladostorelesbackend.domain.models.enums.cartoes.Bandeiras;
+import br.com.fatecmc.tecladostorelesbackend.domain.models.cliente.enums.cartoes.Bandeiras;
 import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.BaseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

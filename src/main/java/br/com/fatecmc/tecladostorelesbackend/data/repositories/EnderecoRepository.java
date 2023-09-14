@@ -1,6 +1,6 @@
 package br.com.fatecmc.tecladostorelesbackend.data.repositories;
 
-import br.com.fatecmc.tecladostorelesbackend.domain.models.Endereco;
+import br.com.fatecmc.tecladostorelesbackend.domain.models.cliente.Endereco;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
