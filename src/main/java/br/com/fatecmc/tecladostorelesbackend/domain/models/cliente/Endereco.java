@@ -1,6 +1,7 @@
-package br.com.fatecmc.tecladostorelesbackend.domain.models;
+package br.com.fatecmc.tecladostorelesbackend.domain.models.cliente;
 
-import br.com.fatecmc.tecladostorelesbackend.domain.models.enums.enderecos.TiposEndereco;
+import br.com.fatecmc.tecladostorelesbackend.domain.models.BaseModel;
+import br.com.fatecmc.tecladostorelesbackend.domain.models.cliente.enums.enderecos.TiposEndereco;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
