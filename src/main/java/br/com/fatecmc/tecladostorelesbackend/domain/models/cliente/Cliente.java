@@ -1,5 +1,6 @@
-package br.com.fatecmc.tecladostorelesbackend.domain.models;
+package br.com.fatecmc.tecladostorelesbackend.domain.models.cliente;
 
+import br.com.fatecmc.tecladostorelesbackend.domain.models.BaseModel;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,8 +23,12 @@ public class Cliente extends BaseModel {
     private String telefone;
     private String email;
     private String senha;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente_id")
     private Set<Endereco> enderecos = new HashSet<>();
-    @OneToMany(mappedBy = "clienteResponsavel", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente_id")
     private Set<Cartao> cartoesCredito = new HashSet<>();
+
+    private Boolean ativo = true;
 }

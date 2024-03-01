@@ -1,18 +1,18 @@
-package br.com.fatecmc.tecladostorelesbackend.presentation.dtos;
+package br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input;
 
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.BaseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.Set;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClienteDTO {
+public class ClienteEditadoDTO extends BaseDTO {
     private String nome;
     private Date dataNascimento;
     private String genero;
@@ -20,6 +20,4 @@ public class ClienteDTO {
     private String telefone;
     private String email;
     private String senha;
-    private Set<EnderecoDTO> enderecos;
-    private Set<Long> cartoesCreditoId;
 }

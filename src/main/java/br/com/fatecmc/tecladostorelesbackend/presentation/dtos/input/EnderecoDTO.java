@@ -1,6 +1,7 @@
-package br.com.fatecmc.tecladostorelesbackend.presentation.dtos;
+package br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input;
 
-import br.com.fatecmc.tecladostorelesbackend.domain.models.enums.enderecos.TiposEndereco;
+import br.com.fatecmc.tecladostorelesbackend.domain.models.cliente.enums.enderecos.TiposEndereco;
+import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.BaseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EnderecoDTO {
+public class EnderecoDTO extends BaseDTO {
     private String nomeEndereco;
     private TiposEndereco tipoEndereco;
     private String tipoResidencia;
