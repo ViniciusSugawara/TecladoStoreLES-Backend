@@ -162,6 +162,12 @@ public class ClienteService {
         this.clienteRepository.save(clienteRetornado);
     }
 
+    public void reactivateById(Long idCliente){
+        Cliente clienteRetornado = this.clienteRepository.findById(idCliente).orElseThrow();
+        clienteRetornado.setAtivo(true);
+        this.clienteRepository.save(clienteRetornado);
+    }
+
     public void deleteById(Long idCliente){
         this.clienteRepository.deleteById(idCliente);
     }
