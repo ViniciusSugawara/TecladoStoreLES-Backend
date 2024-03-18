@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>Loja Virtual com Spring MVC Spring Boot</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="icon" href="/image/favicon.png" />
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <!-- Bootstrap core CSS -->
+  <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css"
+        rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href="/css/style.css" rel="stylesheet" />
+</head>
+<body>
+<div class="layout-main">
+  <aside>
+    <nav class="navbar bg-body-tertiary fixed-top">
+      <div class="container-fluid gap-3 justify-content-start">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="../../../">
+          <i class="oi oi-home"></i> <span>Home</span>
+        </a>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Opções disponíveis</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Clientes
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/admin/clients/store"><i class="oi oi-plus"></i> <span> Cadastrar </span></a></li>
+                  <li><a class="dropdown-item" href="/admin/clients"><i class="oi oi-spreadsheet"></i> <span> Listar </span></a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <section class="layout-content" layout:fragment="corpo">
+    Principal
+  </section>
+
+</div>
+<footer class="layout-footer">
+  <div class="container">
+			<span class="footer-copy">&copy; 2018 MBallem. Todos os
+				direitos reservados.</span>
+  </div>
+</footer>
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+  $(function() {
+    $('[data-toggle="popover"]').popover();
+  });
+
+  $(document).ready(function(){
+    $(".navbar-toggle").click(function(){
+      $(".sidebar").toggleClass("sidebar-open");
+    })
+  });
+
+</script>
+</body>
+</html>

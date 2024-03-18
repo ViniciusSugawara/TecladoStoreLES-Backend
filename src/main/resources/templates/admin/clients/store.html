@@ -1,0 +1,239 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{admin/fragments/layout}">
+<head>
+    <title>Cadastro de cliente</title>
+</head>
+<body>
+<section class="layout-content" layout:fragment="corpo">
+    <div class="page-header">
+        <nav class="navbar navbar-expand-md navbar-top bg-light">
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav">
+                    <li class="nav-item active"><i class="oi oi-caret-right"></i>
+                        <span>Cadastrar cliente</span></li>
+                </ul>
+            </div>
+            <a class="btn btn-primary btn-md"
+               href="/admin/clients" role="button"> <span
+                    class="oi oi-spreadsheet" title="Cadastro" aria-hidden="true"></span>
+                <span>Listar Clientes</span>
+            </a>
+        </nav>
+    </div>
+
+    <div class="container" id="cadastro">
+        <form action="/admin/clients"
+              th:object="${cliente}" method="POST">
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="nome">Nome</label>
+                    <input type="text"
+                           class="form-control"
+                           id="nome"
+                           placeholder="Nome Completo"
+                           autofocus="autofocus"
+                           th:field="*{nome}"
+                           value=""/>
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="email">Email</label>
+                    <input type="text"
+                           class="form-control"
+                           id="email"
+                           name="email"
+                           th:field="*{email}"
+                           value=""/>
+                    <div class="invalid-feedback"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-2">
+                    <label for="cpf">CPF</label>
+                    <input type="text"
+                           class="form-control"
+                           data-mask="###.###.###-##"
+                           id="cpf"
+                           name="email"
+                           th:field="*{cpf}"
+                           maxlength="14"
+                           value=""/>
+                <div class="invalid-feedback"></div>
+            </div>
+                <div class="form-group col-sm-2">
+                    <label for="datanascimento">Data de nascimento</label>
+                    <input type="text"
+                           class="form-control"
+                           data-mask="##/##/####"
+                           placeholder="dd/mm/yyyy"
+                           id="datanascimento"
+                           name="datanascimento"
+                           th:field="*{dataNascimento}"
+                           value="01-02-2023"/>
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label for="genero">Gênero</label>
+                    <input type="text"
+                           class="form-control"
+                           id="genero"
+                           name="genero"
+                           th:field="*{genero}"
+                           value=""/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="senha">Senha</label>
+                    <input type="password"
+                           class="form-control"
+                           id="senha"
+                           name="senha"
+                           th:field="*{senha}"
+                           value=""/>
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="repetirSenha">Repita sua senha</label>
+                    <input type="password"
+                           class="form-control"
+                           id="repetirSenha"
+                           name="repetirSenha"
+                           value=""/>
+                    <div class="invalid-feedback"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label for="nomeendereco"> Nome do endereço </label>
+                    <input type="text"
+                           class="form-control"
+                           id="nomeendereco"
+                           placeholder="Defina um nome para o endereço"
+                           name="nomeendereco"
+                           th:field="*{enderecoResidencial.nomeEndereco}"
+                           value=""/>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label for="tipoendereco"> Tipo do endereço </label>
+                    <select id="tipoendereco" class="form-control" th:field="*{enderecoResidencial.tipoEndereco}">
+                        <option class="form-control" th:value="RESIDENCIAL"> Residencial </option>
+                        <option class="form-control" th:value="COBRANCA"> Cobrança </option>
+                        <option class="form-control" th:value="ENTREGA"> Entrega </option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="tiporesidencia"> Tipo da residencia </label>
+                    <input type="text"
+                           class="form-control"
+                           id="tiporesidencia"
+                           name="tiporesidencia"
+                           th:field="*{enderecoResidencial.tipoResidencia}"
+                           value=""/>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="tipologradouro">Tipo do logradouro</label>
+                    <input type="text"
+                           class="form-control"
+                           id="tipologradouro"
+                           name="tipologradouro"
+                           th:field="*{enderecoResidencial.tipoLogradouro}"
+                           value=""/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-2">
+                    <label for="cep">Cep</label>
+                    <input type="text"
+                           class="form-control"
+                           id="cep"
+                           data-mask="00000-000"
+                           name="cep"
+                           th:field="*{enderecoResidencial.cep}"
+                           value=""/>
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="logradouro">Logradouro</label>
+                    <input type="text"
+                           class="form-control"
+                           id="logradouro"
+                           name="logradouro"
+                           th:field="*{enderecoResidencial.logradouro}"
+                           value=""/>
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="observacoes"> Observações </label>
+                    <input type="text"
+                           class="form-control"
+                           id="observacoes"
+                           name="observacoes"
+                           th:field="*{enderecoResidencial.observacoes}"
+                           value=""/>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label for="numero">Número</label>
+                    <input type="text"
+                           class="form-control"
+                           id="numero"
+                           name="numero"
+                           th:field="*{enderecoResidencial.numero}"
+                           value=""/>
+                    <div class="invalid-feedback"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label for="cidade">Cidade</label>
+                    <input type="text"
+                           class="form-control"
+                           id="cidade"
+                           name="cidade"
+                           th:field="*{enderecoResidencial.cidade}"
+                           value=""/>
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="bairro">Bairro</label>
+                    <input type="text"
+                           class="form-control"
+                           id="bairro"
+                           name="bairro"
+                           th:field="*{enderecoResidencial.bairro}"
+                           value=""/>
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label for="estado">Estado</label>
+                    <input type="text"
+                           class="form-control"
+                           id="estado"
+                           placeholder="ex: SP"
+                           name="estado"
+                           th:field="*{enderecoResidencial.estado}"
+                           value=""/>
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label for="pais">País</label>
+                    <input type="text"
+                           class="form-control"
+                           id="pais"
+                           placeholder="ex: Brasil"
+                           name="pais"
+                           th:field="*{enderecoResidencial.pais}"
+                           value=""/>
+                    <div class="invalid-feedback"></div>
+                </div>
+            </div>
+            <div class="row">
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+        </form>
+    </div>
+</section>
+</body>
+</html>
