@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +17,7 @@ import java.util.Set;
 @Table(name = "clientes")
 public class Cliente extends BaseModel {
     private String nome;
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
     private String genero;
     private String cpf;
     private String telefone;

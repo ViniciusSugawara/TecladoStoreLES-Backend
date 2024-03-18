@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Getter
@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class ClienteRetornoDTO extends BaseDTO {
     private String nome;
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
     private String genero;
     private String cpf;
     private String telefone;
