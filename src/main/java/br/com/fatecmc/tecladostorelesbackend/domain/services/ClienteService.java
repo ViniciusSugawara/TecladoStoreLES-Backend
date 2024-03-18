@@ -9,6 +9,7 @@ import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.ClienteEdit
 import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.CartaoDTO;
 import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.output.ClienteRetornoDTO;
 import br.com.fatecmc.tecladostorelesbackend.presentation.dtos.input.EnderecoDTO;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
@@ -32,7 +33,7 @@ public class ClienteService {
 
         List<ClienteRetornoDTO> listaMapeada = new ArrayList<>();
 
-        this.clienteRepository.findAll()
+        this.clienteRepository.findAll(Sort.by(Sort.Direction.ASC, "id"))
                 .stream()
                 .forEach(cliente -> {
                     ClienteRetornoDTO clienteMapeado = mapper.map(cliente, ClienteRetornoDTO.class);
