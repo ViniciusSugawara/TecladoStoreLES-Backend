@@ -1,71 +1,112 @@
-<!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml"
-      layout:decorate="~{admin/fragments/layout}">
-<head>
-    <meta charset="UTF-8">
+<!doctype html>
+<html
+  xmlns:layout="http://www.w3.org/1999/xhtml"
+  layout:decorate="~{admin/fragments/layout}"
+>
+  <head>
+    <meta charset="UTF-8" />
     <title>Listagem de clientes</title>
-</head>
-<body>
-<section class="layout-content" layout:fragment="corpo">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-        <h1 class="header" th:text="'Listagem de todos os clientes'"> </h1>
+  </head>
+  <body>
+    <section class="layout-content" layout:fragment="corpo">
+      <div
+        class="container-fluid d-flex justify-content-between align-items-center"
+      >
+        <h1 class="header" th:text="'Listagem de todos os clientes'"></h1>
         <a class="btn btn-primary" href="clients/store">Cadastrar novo</a>
-    </div>
-<table class="table table-primary">
-    <thead class="table-light">
-    <tr>
-        <th> ID </th>
-        <th> Nome </th>
-        <th> E-mail </th>
-        <th> CPF </th>
-        <th> Data de nascimento </th>
-        <th> Gênero </th>
-        <th> Ações </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="client: ${clients}" th:class="${client.ativo}? '' : 'table-danger'" >
-        <td th:text="${client.id}"> 1 </td>
-        <td th:text="${client.nome}"> name </td>
-        <td th:text="${client.email}"> e-mail </td>
-        <td th:text="${client.cpf}"> cpf </td>
-        <td th:text="${client.dataNascimento}"> data de nascimento </td>
-        <td th:text="${client.genero}"> genero </td>
-        <td colspan="2">
-            <a class="btn btn-info btn-sm"
-                           th:href="@{/admin/clients/update/{idCliente}(idCliente=${client.id})}"
-                           role="button"> <span class="oi oi-brush" title="Editar"
-                                                aria-hidden="true"></span>
-            </a>
-            <a class="btn btn-info btn-sm"
-               data-bs-toggle="modal"
-               th:attr="data-bs-target='#modal-warning'+${client.id}">
-                <span th:class="${client.ativo}? 'oi oi-circle-x' : 'oi oi-circle-check'" th:title="${client.ativo}?Desativar : Ativar" aria-hidden="true"></span>
-            </a>
-            <div class="modal fade"
-                 th:id="'modal-warning' + ${client.id}">
+      </div>
+      <table class="table table-primary">
+        <thead class="table-light">
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>CPF</th>
+            <th>Data de nascimento</th>
+            <th>Gênero</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            th:each="client: ${clients}"
+            th:class="${client.ativo}? '' : 'table-danger'"
+          >
+            <td th:text="${client.id}">1</td>
+            <td th:text="${client.nome}">name</td>
+            <td th:text="${client.email}">e-mail</td>
+            <td th:text="${client.cpf}">cpf</td>
+            <td th:text="${client.dataNascimento}">data de nascimento</td>
+            <td th:text="${client.genero}">genero</td>
+            <td colspan="2">
+              <a
+                class="btn btn-info btn-sm"
+                th:href="@{/admin/clients/update/{idCliente}(idCliente=${client.id})}"
+                role="button"
+              >
+                <span
+                  class="oi oi-brush"
+                  title="Editar"
+                  aria-hidden="true"
+                ></span>
+              </a>
+              <a
+                class="btn btn-info btn-sm"
+                data-bs-toggle="modal"
+                th:attr="data-bs-target='#modal-warning'+${client.id}"
+              >
+                <span
+                  th:class="${client.ativo}? 'oi oi-circle-x' : 'oi oi-circle-check'"
+                  th:title="${client.ativo}?Desativar : Ativar"
+                  aria-hidden="true"
+                ></span>
+              </a>
+              <div class="modal fade" th:id="'modal-warning' + ${client.id}">
                 <div class="modal-dialog">
-                    <form class="modal-content"
-                          th:action="${client.ativo}? @{/admin/clients/{id}(id=${client.id})} :  @{/admin/clients/reactivate/{id}(id=${client.id})}"
-                          th:method="${client.ativo}? delete : patch">
-                        <div class="modal-header justify-content-between">
-                            <h4 class="modal-title" th:text="${client.ativo}? 'Desativar cliente' : 'Ativar cliente'"></h4>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body text-center">
-                            <h3 th:text="${client.ativo}? 'Deseja realmente desativar o cliente?' : 'Deseja realmente ativar o cliente?'"></h3>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button type="submit" th:class="${client.ativo}? 'btn btn-outline-danger' : 'btn btn-outline-success'">Confirmar</button>
-                        </div>
-                    </form>
+                  <form
+                    class="modal-content"
+                    th:action="${client.ativo}? @{/admin/clients/{id}(id=${client.id})} :  @{/admin/clients/reactivate/{id}(id=${client.id})}"
+                    th:method="${client.ativo}? delete : patch"
+                  >
+                    <div class="modal-header justify-content-between">
+                      <h4
+                        class="modal-title"
+                        th:text="${client.ativo}? 'Desativar cliente' : 'Ativar cliente'"
+                      ></h4>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body text-center">
+                      <h3
+                        th:text="${client.ativo}? 'Deseja realmente desativar o cliente?' : 'Deseja realmente ativar o cliente?'"
+                      ></h3>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Fechar
+                      </button>
+                      <button
+                        type="submit"
+                        th:class="${client.ativo}? 'btn btn-outline-danger' : 'btn btn-outline-success'"
+                      >
+                        Confirmar
+                      </button>
+                    </div>
+                  </form>
                 </div>
-            </div>
-        </td>
-    </tr>
-    </tbody>
-</table>
-</section>
-</body>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </body>
 </html>
