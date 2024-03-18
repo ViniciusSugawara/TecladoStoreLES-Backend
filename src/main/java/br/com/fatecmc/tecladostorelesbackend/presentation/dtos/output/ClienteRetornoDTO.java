@@ -23,4 +23,5 @@ public class ClienteRetornoDTO extends BaseDTO {
     private String senha;
     private Set<Long> enderecosId;
     private Set<Long> cartoesCreditoId;
+    private Boolean ativo;
 }
