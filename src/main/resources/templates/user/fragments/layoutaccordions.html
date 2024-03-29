@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>Teclado Store</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="icon" href="/image/favicon.png" />
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <!-- Bootstrap core CSS -->
+  <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link
+          href="/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css"
+          rel="stylesheet"
+  />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <!-- Custom styles for this template -->
+  <link href="/css/style.css" rel="stylesheet" />
+
+  <!--  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+</head>
+<body>
+<div th:fragment="accordionEndereco(enderecos, idCliente)">
+    <div class="accordion" th:id="'accordionEndereco'">
+      <div th:each="endereco: ${enderecos}" class="accordion-item">
+        <h2 class="accordion-header">
+          <button th:text="${endereco.nomeEndereco}"
+                  class="accordion-button"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  th:attr="data-bs-target='#collapse'+${endereco.id},
+                         aria-controls='collapse'+${endereco.id}"
+                  aria-expanded="false"></button>
+        </h2>
+        <div th:id="'collapse'+${endereco.id}" th:attr="data-bs-parent='#accordionEndereco'" th:class="'accordion-collapse collapse'">
+          <div class="accordion-body">
+            <div class="row align-items-center">
+              <table th:replace="user/fragments/layouttables :: tabelaendereco(endereco=${endereco})"></table>
+            </div>
+            <div class="row">
+              <a class="btn btn-outline-info" th:href="@{'/user/profile/'+${idCliente}+'/address/'+${endereco.id}}"> Editar endereço </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div th:fragment="accordionCartoes(cartoes, idCliente)">
+  <div class="accordion" th:id="'accordionCartoes'">
+            <div th:each="cartao: ${cartoes}" class="accordion-item">
+              <h2 class="accordion-header">
+                <button th:text="'cartao '+${cartao.id}"
+                        class="accordion-button"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        th:attr="data-bs-target='#collapse'+${cartao.id},
+                         aria-controls='collapse'+${cartao.id}"
+                        aria-expanded="false"></button>
+              </h2>
+              <div th:id="'collapse'+${cartao.id}" th:attr="data-bs-parent='#accordionCartoes'" th:class="'accordion-collapse collapse'">
+                <div class="accordion-body">
+                  <div class="row align-items-center">
+                    <table th:replace="user/fragments/layouttables :: tabelacartao(cartao=${cartao})"></table>
+                  </div>
+                </div>
+              </div>
+            </div>
+    </div>
+</div>
+  <script src="/webjars/jquery/jquery.min.js"></script>
+  <script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+  <script
+          src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+          integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+          crossorigin="anonymous"
+  ></script>
+  <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

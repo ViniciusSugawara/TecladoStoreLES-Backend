@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>Teclado Store</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="icon" href="/image/favicon.png" />
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <!-- Bootstrap core CSS -->
+  <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link
+          href="/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css"
+          rel="stylesheet"
+  />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <!-- Custom styles for this template -->
+  <link href="/css/style.css" rel="stylesheet" />
+
+<!--  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+</head>
+<body>
+<nav class="navbar bg-body-tertiary fixed-top">
+  <div class="container-fluid gap-3 justify-content-between">
+    <a class="navbar-brand" href="/user/products">
+      <i class="oi oi-home"></i> <span>Home</span>
+    </a>
+    <a class="navbar-brand text-end" href="/user/shopcart">
+      <i class="oi oi-cart"></i>
+    </a>
+    <div class="dropdown">
+      <li class="nav-item dropdown list-unstyled">
+        <button class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"> Bem vindo, usuario <i class="oi oi-person"></i>
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="/user/profile/15"
+            ><i class="oi oi-plus"></i>
+              <span> Minha conta </span></a
+            >
+          </li>
+
+          <li>
+            <a class="dropdown-item" href="/user/orders"
+            ><i class="oi oi-spreadsheet"></i>
+              <span> Verificar pedidos </span></a
+            >
+          </li>
+          <li>
+          <a class="dropdown-item" href="/admin/clients"
+          ><i class="oi oi-spreadsheet"></i>
+            <span> Acesso administrativo </span></a
+          >
+        </li>
+        </ul>
+      </li>
+    </div>
+  </div>
+</nav>
+<!-- Page Content -->
+<div class="container" layout:fragment="corpo"></div>
+<!-- /.container -->
+
+
+
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"
+></script>
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

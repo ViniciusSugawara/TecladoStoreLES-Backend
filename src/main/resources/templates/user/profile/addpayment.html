@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{admin/fragments/layout}"
+>
+<head>
+    <title>Adicionar cartão</title>
+</head>
+<body>
+<section class="layout-content" layout:fragment="corpo">
+    <div class="container">
+        <div th:replace="/user/fragments/layoutforms :: formcartao(cartao=${cartao}, acao='post', metodo='/user/profile/addpayment', id='idteste')">
+
+        </div>
+    </div>
+</section>
+</body>
+</html>

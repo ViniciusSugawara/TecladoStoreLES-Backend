@@ -1,0 +1,47 @@
+<!doctype html>
+<html
+        xmlns:layout="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{user/fragments/layout}"
+>
+<head>
+  <title> Edição do perfil </title>
+</head>
+<body>
+<div class="container" layout:fragment="corpo">
+  <h1 th:text="'Perfil do usuario'" > Header brabo </h1>
+  <div class="container" id="cadastro">
+    <div class="row row-cols-2">
+      <div class="col-6">
+        <div class="row">
+            <h1 class="col-8"> Dados gerais </h1>
+        </div>
+        <div class="row">
+          <form th:replace="~{user/fragments/layoutforms :: formusuario(cliente=${cliente}, id='formuser' + ${cliente.id}, metodo='put', acao='/admin/clients/' + ${cliente.id})}"></form>
+        </div>
+      </div>
+      <div class="col-6 p-2">
+        <div class="row">
+          <h1 class="col-10"> Endereços </h1>
+          <a class="btn col-2 align-self-center" th:href="@{'/user/profile/'+${cliente.id}+'/address'}"><i class="oi oi-plus"></i></a>
+        </div>
+        <!--Accordion endereço-->
+        <div th:replace="user/fragments/layoutAccordions :: accordionEndereco(enderecos=${enderecos}, idCliente=${cliente.id})"></div>
+    </div>
+    </div>
+    <div class="row row-cols-2">
+      <div class="col-6 offset-6 p-2">
+        <div class="row">
+          <h1 class="col-10"> Cartões </h1>
+          <a class="btn col-2 align-self-center" th:href="@{'/user/profile/'+${cliente.id}+'/payment'}"><i class="oi oi-plus"></i></a>
+        </div>
+        <div th:replace="user/fragments/layoutaccordions :: accordionCartoes(cartoes=${cartoes}, idCliente=${cliente.id})">
+        </div>
+      </div>
+      </div>
+</div>
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
