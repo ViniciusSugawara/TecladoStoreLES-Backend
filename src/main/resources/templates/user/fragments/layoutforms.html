@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>Teclado Store</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="icon" href="/image/favicon.png" />
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <!-- Bootstrap core CSS -->
+  <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link
+          href="/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css"
+          rel="stylesheet"
+  />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <!-- Custom styles for this template -->
+  <link href="/css/style.css" rel="stylesheet" />
+
+  <!--  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+</head>
+<body>
+<div th:fragment="formusuario(cliente, acao, metodo, id)">
+  <form th:id="${id}" th:action="@{'/admin/clients/'+${cliente.id}}" th:method="${metodo}" th:object="${cliente}"
+  >
+    <div class="row">
+      <div class="form-group col-sm-6">
+        <label for="nome">Nome</label>
+        <input
+                type="text"
+                class="form-control"
+                id="nome"
+                placeholder="Nome Completo"
+                autofocus="autofocus"
+                th:field="*{nome}"
+        />
+        <div class="invalid-feedback"></div>
+      </div>
+      <div class="form-group col-sm-6">
+        <label for="email">Email</label>
+        <input
+                type="text"
+                class="form-control"
+                id="email"
+                name="email"
+                th:field="*{email}"
+        />
+        <div class="invalid-feedback"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-4">
+        <label for="cpf">CPF</label>
+        <input
+                type="text"
+                class="form-control"
+                data-mask="###.###.###-##"
+                id="cpf"
+                name="email"
+                maxlength="14"
+                th:field="*{cpf}"
+        />
+        <div class="invalid-feedback"></div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="datanascimento">Data de nascimento</label>
+        <input
+                type="text"
+                class="form-control"
+                data-mask="##/##/####"
+                placeholder="dd/mm/yyyy"
+                id="datanascimento"
+                name="datanascimento"
+                th:field="*{dataNascimento}"
+        />
+        <div class="invalid-feedback"></div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="genero">Gênero</label>
+        <input
+                type="text"
+                class="form-control"
+                id="genero"
+                name="genero"
+                th:field="*{genero}"
+        />
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="telefone">Telefone</label>
+        <input
+                type="tel"
+                class="form-control"
+                maxlength="15"
+                data-mask="(##) #####-####"
+                id="telefone"
+                name="telefone"
+                th:field="*{telefone}"
+        />
+      </div>
+    </div>
+
+<!--    <a class="btn btn-dark text-end align-items-end justify-content-end" href="/user/profile/updatepassword">Alterar senha</a>-->
+    <button type="submit" class="btn btn-outline-success"> Alterar dados</button>
+  </form>
+</div>
+
+<!-- Formulário de endereços -->
+<div th:fragment="formendereco(endereco, acao, metodo, id)">
+  <form th:id="${id}" th:action="@{acao}" th:method="${metodo}" th:object="${endereco}">
+
+    <div class="row">
+      <div class="form-group col-sm-4">
+        <label for="nomeendereco"> Nome do endereço </label>
+        <input
+                type="text"
+                class="form-control"
+                id="nomeendereco"
+                placeholder="Defina um nome para o endereço"
+                name="nomeendereco"
+                th:field="*{nomeEndereco}"
+        />
+      </div>
+      <div class="form-group col-sm-2">
+        <label for="tipoendereco"> Tipo do endereço </label>
+        <select
+                id="tipoendereco"
+                class="form-control"
+                th:field="*{tipoEndereco}"
+        >
+          <option class="form-control" th:value="RESIDENCIAL">
+            Residencial
+          </option>
+          <option class="form-control" th:value="COBRANCA">
+            Cobrança
+          </option>
+          <option class="form-control" th:value="ENTREGA">Entrega</option>
+        </select>
+      </div>
+      <div class="form-group col-sm-3">
+        <label for="tiporesidencia"> Tipo da residencia </label>
+        <input
+                type="text"
+                class="form-control"
+                id="tiporesidencia"
+                name="tiporesidencia"
+                th:field="*{tipoResidencia}"
+        />
+      </div>
+      <div class="form-group col-sm-3">
+        <label for="tipologradouro">Tipo do logradouro</label>
+        <input
+                type="text"
+                class="form-control"
+                id="tipologradouro"
+                name="tipologradouro"
+                th:field="*{tipoLogradouro}"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-2">
+        <label for="cep">Cep</label>
+        <input
+                type="text"
+                class="form-control"
+                id="cep"
+                data-mask="00000-000"
+                name="cep"
+                th:field="*{cep}"
+        />
+        <div class="invalid-feedback"></div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="logradouro">Logradouro</label>
+        <input
+                type="text"
+                class="form-control"
+                id="logradouro"
+                name="logradouro"
+                th:field="*{logradouro}"
+        />
+        <div class="invalid-feedback"></div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="observacoes"> Observações </label>
+        <input
+                type="text"
+                class="form-control"
+                id="observacoes"
+                name="observacoes"
+                th:field="*{observacoes}"
+        />
+      </div>
+      <div class="form-group col-sm-2">
+        <label for="numero">Número</label>
+        <input
+                type="text"
+                class="form-control"
+                id="numero"
+                name="numero"
+                th:field="*{numero}"
+        />
+        <div class="invalid-feedback"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-4">
+        <label for="cidade">Cidade</label>
+        <input
+                type="text"
+                class="form-control"
+                id="cidade"
+                name="cidade"
+                th:field="*{cidade}"
+        />
+        <div class="invalid-feedback"></div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="bairro">Bairro</label>
+        <input
+                type="text"
+                class="form-control"
+                id="bairro"
+                name="bairro"
+                th:field="*{bairro}"
+        />
+        <div class="invalid-feedback"></div>
+      </div>
+      <div class="form-group col-sm-2">
+        <label for="estado">Estado</label>
+        <input
+                type="text"
+                class="form-control"
+                id="estado"
+                placeholder="ex: SP"
+                name="estado"
+                th:field="*{estado}"
+        />
+        <div class="invalid-feedback"></div>
+      </div>
+      <div class="form-group col-sm-2">
+        <label for="pais">País</label>
+        <input
+                type="text"
+                class="form-control"
+                id="pais"
+                placeholder="ex: Brasil"
+                name="pais"
+                th:field="*{pais}"
+        />
+        <div class="invalid-feedback"></div>
+      </div>
+    </div>
+
+    <div class="row d-flex justify-content-end">
+
+      <button type="submit" class="btn btn-primary btn-sm col-sm-2">Salvar</button>
+    </div>
+  </form>
+</div>
+
+
+<div th:fragment="formcartao(cartao, acao, metodo, id)">
+  <form th:action="@{'/user/profile/'+${idCliente}+'/payment'}" th:method="POST" th:object="${cartao}"
+  >
+    <div class="row">
+      <div class="form-group col-sm-3">
+        <label for="nome">Numeros do cartão</label>
+        <input
+                type="text"
+                class="form-control"
+                id="numeros"
+                data-mask="0000-0000-0000-0000"
+                placeholder="Numeros do cartao"
+                autofocus="autofocus"
+                th:field="*{numeros}"
+        />
+        <div class="invalid-feedback"></div>
+      </div>
+      <div class="form-group col-sm-3">
+        <label for="email">Nome impresso no cartão</label>
+        <input
+                type="text"
+                class="form-control"
+                id="nomeimpresso"
+                name="nomeimpresso"
+                th:field="*{nomeImpresso}"
+        />
+        <div class="invalid-feedback"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-2">
+        <label for="bandeiracartao"> Bandeira do cartão </label>
+        <select
+                id="bandeiracartao"
+                class="form-control"
+                th:value="*{bandeira}"
+        >
+          <option class="form-control" th:value="VISA">
+            Visa
+          </option>
+          <option class="form-control" th:value="MASTERCARD">
+            Mastercard
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-sm-2">
+        <label for="codigoseguranca">Código de segurança</label>
+        <input
+                type="text"
+                class="form-control"
+                id="codigoseguranca"
+                name="codigoseguranca"
+                th:field="*{codigoSeguranca}"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-4">
+        <input class="form-check-input" type="checkbox" th:field="*{preferencial}" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          Marcar como preferêncial
+        </label>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+
+
+      <button type="submit" class="btn btn-primary btn-sm col-sm-2">Salvar</button>
+    </div>
+  </form>
+
+  <a th:href="@{'/user/profile/'+${idCliente}}" class="btn button btn-dark"> Retornar </a>
+</div>
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"
+></script>
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

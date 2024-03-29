@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>Teclado Store</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="icon" href="/image/favicon.png" />
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <!-- Bootstrap core CSS -->
+  <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link
+          href="/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css"
+          rel="stylesheet"
+  />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <!-- Custom styles for this template -->
+  <link href="/css/style.css" rel="stylesheet" />
+
+  <!--  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+</head>
+<body>
+
+<table th:fragment="tabelaendereco(endereco)" class="table align-middle">
+  <div>
+    <tr>
+      <th class="table-primary">Tipo do endereco</th>
+      <td class="table-light" th:text="${endereco.tipoResidencia}"></td>
+      <th class="table-primary">Tipo do logradouro</th>
+      <td class="table-light" th:text="${endereco.tipoLogradouro}"></td>
+    </tr>
+    <tr>
+      <th class="table-primary">CEP</th>
+      <td class="table-light" th:text="${endereco.cep}">08730260</td>
+      <th class="table-primary">Logradouro</th>
+      <td class="table-light" th:text="${endereco.logradouro}">R. Doutor fernando tancredi</td>
+    </tr>
+    <tr>
+      <th class="table-primary">Numero</th>
+      <td class="table-light" th:text="${endereco.numero}">50</td>
+      <th class="table-primary">Bairro</th>
+      <td class="table-light" th:text="${endereco.bairro}">Alto ipiranga</td>
+    </tr>
+    <tr>
+      <th class="table-primary">Cidade</th>
+      <td class="table-light" th:text="${endereco.cidade}">Mogi das cruzes</td>
+      <th class="table-primary">Estado</th>
+      <td class="table-light" th:text="${endereco.estado}">SP</td>
+    </tr>
+  </div>
+</table>
+
+<table th:fragment="tabelacartao(cartao)" class="table align-middle">
+  <tr>
+    <th class="table-primary">Número do cartão</th>
+    <td class="table-light" th:text="${cartao.numeros}"></td>
+    <th class="table-primary">Nome impresso</th>
+    <td class="table-light" th:text="${cartao.nomeImpresso}"></td>
+  </tr>
+  <tr>
+    <th class="table-primary">Bandeira do cartão</th>
+    <td class="table-light" th:text="${cartao.bandeira}"></td>
+    <th class="table-primary">Código de validação</th>
+    <td class="table-light">***</td>
+  </tr>
+</table>
+
+
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"
+></script>
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
