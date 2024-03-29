@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{admin/fragments/layout}"
+>
+<head>
+    <title>Adicionar endereço</title>
+</head>
+<body>
+<section class="layout-content" layout:fragment="corpo">
+    <div class="container" id="cadastro">
+        <form th:action="@{'/user/profile/'+${cliente.id}+'/address'}" th:method="POST" th:object="${endereco}">
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label for="nomeendereco"> Nome do endereço </label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="nomeendereco"
+                            placeholder="Defina um nome para o endereço"
+                            name="nomeendereco"
+                            th:field="*{nomeEndereco}"
+                    />
+                </div>
+                <div class="form-group col-sm-2">
+                    <label for="tipoendereco"> Tipo do endereço </label>
+                    <select
+                            id="tipoendereco"
+                            class="form-control"
+                            th:field="*{tipoEndereco}"
+                    >
+                        <option class="form-control" th:value="RESIDENCIAL">
+                            Residencial
+                        </option>
+                        <option class="form-control" th:value="COBRANCA">
+                            Cobrança
+                        </option>
+                        <option class="form-control" th:value="ENTREGA">Entrega</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="tiporesidencia"> Tipo da residencia </label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="tiporesidencia"
+                            name="tiporesidencia"
+                            th:field="*{tipoResidencia}"
+                    />
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="tipologradouro">Tipo do logradouro</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="tipologradouro"
+                            name="tipologradouro"
+                            th:field="*{tipoLogradouro}"
+                    />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-2">
+                    <label for="cep">Cep</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="cep"
+                            data-mask="00000-000"
+                            name="cep"
+                            th:field="*{cep}"
+                    />
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="logradouro">Logradouro</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="logradouro"
+                            name="logradouro"
+                            th:field="*{logradouro}"
+                    />
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="observacoes"> Observações </label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="observacoes"
+                            name="observacoes"
+                            th:field="*{observacoes}"
+                    />
+                </div>
+                <div class="form-group col-sm-2">
+                    <label for="numero">Número</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="numero"
+                            name="numero"
+                            th:field="*{numero}"
+                    />
+                    <div class="invalid-feedback"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label for="cidade">Cidade</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="cidade"
+                            name="cidade"
+                            th:field="*{cidade}"
+                    />
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="bairro">Bairro</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="bairro"
+                            name="bairro"
+                            th:field="*{bairro}"
+                    />
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label for="estado">Estado</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="estado"
+                            placeholder="ex: SP"
+                            name="estado"
+                            th:field="*{estado}"
+                    />
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label for="pais">País</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="pais"
+                            placeholder="ex: Brasil"
+                            name="pais"
+                            th:field="*{pais}"
+                    />
+                    <div class="invalid-feedback"></div>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-end">
+
+                <button type="submit" class="btn btn-primary btn-sm col-sm-2">Salvar</button>
+            </div>
+        </form>
+        <a th:href="@{'/user/profile/'+${cliente.id}}" class="btn button btn-dark"> Retornar </a>
+    </div>
+
+</section>
+</body>
+</html>
